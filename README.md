@@ -1,5 +1,5 @@
-#**YOLO (You Only Look Once) Object Detection Models**
-*What is YOLO*
+# YOLO (You Only Look Once) Object Detection Models
+## *What is YOLO*
 YOLO is a state-of-the-art, real-time object detection system that utilizes a deep neural network to detect and identify objects in an image or video stream.
 
 Models
