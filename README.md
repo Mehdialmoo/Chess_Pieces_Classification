@@ -21,58 +21,58 @@ Cross-Platform Compatibility: YOLO models can be implemented on various platform
 Example Code
 You can use the following Python code to load a pre-trained YOLO model and perform object detection on an image:
 ```python
-    import cv2
-    import numpy as np
+import cv2
+import numpy as np
     
-    # Load the YOLO model
-    net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
+# Load the YOLO model
+net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
     
-    # Load the input image
-    image = cv2.imread("image.jpg")
+# Load the input image
+image = cv2.imread("image.jpg")
     
-    # Get the dimensions of the input image
-    height, width, channels = image.shape
+# Get the dimensions of the input image
+height, width, channels = image.shape
     
-    # Determine the input layer size
-    layer_sizes = net.getLayerNames()
-    layer_sizes = [net.getLayer(layer).outHeight for layer in layer_sizes if net.getLayer(layer).outHeight > 0]
-    layer_size = max(layer_sizes)
+# Determine the input layer size
+layer_sizes = net.getLayerNames()
+layer_sizes = [net.getLayer(layer).outHeight for layer in layer_sizes if net.getLayer(layer).outHeight > 0]
+layer_size = max(layer_sizes)
     
-    # Prepare the input image
-    input_blob = cv2.dnn.blobFromImage(image, 1/255, (layer_size, layer_size), [0,0,0], swapRB=True, crop=False)
+# Prepare the input image
+input_blob = cv2.dnn.blobFromImage(image, 1/255, (layer_size, layer_size), [0,0,0], swapRB=True, crop=False)
     
-    # Pass the input through the YOLO model
-    net.setInput(input_blob)
-    output_layers = net.getUnconnectedOutLayers()
-    layer_outputs = net.forward(output_layers)
+# Pass the input through the YOLO model
+net.setInput(input_blob)
+output_layers = net.getUnconnectedOutLayers()
+layer_outputs = net.forward(output_layers)
     
-    # Interpret the output and perform object detection
-    boxes, confidences, class_ids = [], [], []
-    for output in layer_outputs:
-        for detection in output:
-            scores = detection[5:]
-            class_id = np.argmax(scores)
-            confidence = scores[class_id]
-            if confidence > 0.5:
-                center_x = int(detection[0] * width)
-                center_y = int(detection[1] * height)
-                w = int(detection[2] * width)
-                h = int(detection[3] * height)
-                x = center_x - w / 2
-                y = center_y - h / 2
-                boxes.append([x, y, w, h])
-                confidences.append(float(confidence))
-                class_ids.append(class_id)
+# Interpret the output and perform object detection
+boxes, confidences, class_ids = [], [], []
+for output in layer_outputs:
+    for detection in output:
+        scores = detection[5:]
+        class_id = np.argmax(scores)
+        confidence = scores[class_id]
+if confidence > 0.5:
+    center_x = int(detection[0] * width)
+    center_y = int(detection[1] * height)
+    w = int(detection[2] * width)
+    h = int(detection[3] * height)
+    x = center_x - w / 2
+    y = center_y - h / 2
+    boxes.append([x, y, w, h])
+    confidences.append(float(confidence))
+    class_ids.append(class_id)
     
-    # Apply non-maximum suppression to remove overlapping bounding boxes
-    indices = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
+# Apply non-maximum suppression to remove overlapping bounding boxes
+indices = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
     
-    # Draw the bounding boxes on the image
-    for i in indices:
-        i = i[0]
-        x, y, w, h = boxes[i]
-        label = str(class_ids[i])
-        cv2.rectangle(image
+# Draw the bounding boxes on the image
+for i in indices:
+i = i[0]
+x, y, w, h = boxes[i]
+label = str(class_ids[i])
+cv2.rectangle(image
 ```
 ## *What are the main differences between YOLOv2 and YOLOv3*
 YOLOv2 and YOLOv3 are two successive iterations of the YOLO object detection system, each bringing several improvements over its predecessor. Some of the main differences between YOLOv2 and YOLOv3 include:
