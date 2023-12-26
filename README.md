@@ -105,4 +105,87 @@ False Positives: YOLO can generate false positives, i.e., identifying objects th
 Overall, YOLO offers a powerful and real-time object detection approach, but its limitations should be considered based on the specific requirements of a given project.
 
 
+# YOLO (You Only Look Once)
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [YOLO](#yolo)
+- [YOLOv2](#yolov2)
+- [YOLO9000](#yolo9000)
+- [YOLOv3](#yolov3)
+- [References](#references)
+
+## Introduction
+
+YOLO (You Only Look Once) is a real-time object detection system that divides the input image into a grid and predicts bounding boxes and class probabilities for each grid cell. It is known for its speed and accuracy, making it widely used in computer vision applications.
+
+## YOLO
+
+YOLO, the original version, introduced a single neural network to predict bounding boxes and class probabilities directly from the entire image. It divides the image into a grid and predicts bounding boxes, class probabilities, and confidence scores for each grid cell.
+
+### YOLO Features:
+
+- Real-time object detection
+- Single forward pass for prediction
+- Predicts bounding boxes and class probabilities simultaneously
+
+For more details on YOLO, refer to the original paper:
+
+- [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
+
+## YOLOv2
+
+YOLOv2, also known as YOLO9000, is an improved version that introduced various enhancements, including better architecture, anchor boxes, and the ability to detect a large number of object categories. YOLO9000 can detect over 9000 object categories.
+
+### YOLOv2 Features:
+
+- Improved architecture
+- Introduction of anchor boxes
+- Capability to detect a large number of object categories
+
+For more details on YOLOv2, refer to the paper:
+
+- [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242)
+
+## YOLO9000
+
+YOLO9000 is an extension of YOLOv2 that addresses the limitation of detecting only a predefined set of object categories. YOLO9000 introduces a hierarchical approach to classifying a wide range of object categories.
+
+### YOLO9000 Features:
+
+- Hierarchical classification for a large number of object categories
+- Improved object detection capabilities
+
+For more details on YOLO9000, refer to the paper:
+
+- [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242)
+
+## YOLOv3
+
+YOLOv3 is the latest version of the YOLO series, and it brings further improvements in accuracy and speed. It introduces a darknet-53 architecture and utilizes three different scales of detection to improve performance.
+
+### YOLOv3 Features:
+
+- Darknet-53 architecture
+- Three scales of detection for improved accuracy
+- Enhanced performance
+
+For more details on YOLOv3, refer to the paper:
+
+- [YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767)
+
+## References
+
+1. **YOLO: Unified, Real-Time Object Detection**
+   - Paper: [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640)
+
+2. **YOLO9000: Better, Faster, Stronger**
+   - Paper: [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242)
+
+3. **YOLOv3: An Incremental Improvement**
+   - Paper: [YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767)
+
+Please note that the code snippets and mathematical details can be found in the respective papers. Refer to the official YOLO repository on GitHub for the implementation:
+
+- [YOLO GitHub Repository](https://github.com/AlexeyAB/darknet)
