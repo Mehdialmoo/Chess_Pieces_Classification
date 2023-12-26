@@ -8,7 +8,8 @@
 - [YOLOv2 VS YOLOv3](#what-are-the-main-differences-between-yolov2-and-yolov3)
 - [Why YOLO](#why-yolo)
 - [Limitations of YOLO](#limitations-of-yolo)
-- [Code snippet]()
+- [conclusion](#conclusion)
+- [Getting ready](#getting-ready)
 - [References](#references)
 
 ## What is YOLO?
@@ -109,85 +110,60 @@ YOLO models can be implemented on various platforms, including smartphones, dron
 ## limitations of YOLO
 however, every algorithm and method is not complete, and have their own downsides as well that need to be mentioned such as:
 
-__Complexity:__ 
-
-YOLO models can be quite complex and resource-intensive, making them challenging to implement in real-time applications or on embedded systems.
+__Complexity:__ YOLO models can be quite complex and resource-intensive, making them challenging to implement in real-time applications or on embedded systems.
 
 __Accuracy Trade-off:__ 
 
 YOLO's focus on speed and simplicity may result in lower accuracy compared to more accurate but slower object detection algorithms.
 
-__Handling of Multiple:__
+__Handling of Multiple:__ 
 
- YOLO can struggle with detecting multiple objects within the same bounding box, leading to less accurate results.
+YOLO can struggle with detecting multiple objects within the same bounding box, leading to less accurate results.
 
-__Weak Background Detection:__
+__Weak Background Detection:__ 
 
- YOLO is not designed for detecting objects in varying backgrounds. Its ability to generalize well to unseen backgrounds is limited.
+YOLO is not designed for detecting objects in varying backgrounds. Its ability to generalize well to unseen backgrounds is limited.
 
-Anchor Boxes Tuning: Adjusting the anchor boxes to the dataset can be challenging, affecting the model's accuracy.
+__Anchor Boxes Tuning:__ 
 
-False Positives: YOLO can generate false positives, i.e., identifying objects that are not present in the input image. This can potentially lead to incorrect interpretations of the data.
+Adjusting the anchor boxes to the dataset can be challenging, affecting the model's accuracy.
 
-Overall, YOLO offers a powerful and real-time object detection approach, but its limitations should be considered based on the specific requirements of a given project.
+__False Positives:__ 
+
+YOLO can generate false positives, i.e., identifying objects that are not present in the input image. This can potentially lead to incorrect interpretations of the data.
 
 
-Example Code
-You can use the following Python code to load a pre-trained YOLO model and perform object detection on an image:
-```python
-import cv2
-import numpy as np
-    
-# Load the YOLO model
-net = cv2.dnn.readNet("yolov3.weights", "yolov3.cfg")
-    
-# Load the input image
-image = cv2.imread("image.jpg")
-    
-# Get the dimensions of the input image
-height, width, channels = image.shape
-    
-# Determine the input layer size
-layer_sizes = net.getLayerNames()
-layer_sizes = [net.getLayer(layer).outHeight for layer in layer_sizes if net.getLayer(layer).outHeight > 0]
-layer_size = max(layer_sizes)
-    
-# Prepare the input image
-input_blob = cv2.dnn.blobFromImage(image, 1/255, (layer_size, layer_size), [0,0,0], swapRB=True, crop=False)
-    
-# Pass the input through the YOLO model
-net.setInput(input_blob)
-output_layers = net.getUnconnectedOutLayers()
-layer_outputs = net.forward(output_layers)
-    
-# Interpret the output and perform object detection
-boxes, confidences, class_ids = [], [], []
-for output in layer_outputs:
-    for detection in output:
-        scores = detection[5:]
-        class_id = np.argmax(scores)
-        confidence = scores[class_id]
-if confidence > 0.5:
-    center_x = int(detection[0] * width)
-    center_y = int(detection[1] * height)
-    w = int(detection[2] * width)
-    h = int(detection[3] * height)
-    x = center_x - w / 2
-    y = center_y - h / 2
-    boxes.append([x, y, w, h])
-    confidences.append(float(confidence))
-    class_ids.append(class_id)
-    
-# Apply non-maximum suppression to remove overlapping bounding boxes
-indices = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.4)
-    
-# Draw the bounding boxes on the image
-for i in indices:
-i = i[0]
-x, y, w, h = boxes[i]
-label = str(class_ids[i])
-cv2.rectangle(image
-```
+## Conclusion
+Overall, YOLO offers a powerful and real-time object detection approach, but its limitations should be considered based on the specific requirements of a given project and it is one of the most popular and influential object detection algorithms in computer vision. It has inspired many subsequent works and variations.
+
+
+## Getting ready
+to get ready for code implementation we need firstly to take some steps:
+1. install the [Environment](./ENVIRONMENT.yml) file
+    First, Conda  have to be installed on system. check this by running the following command in terminal:
+    ```bash
+    conda --version
+    ```
+    If Conda is not installed, download it from the official Conda website. Once Conda is installed, create a new environment by running the following command:
+    ```bash
+    conda create -n ENVIRONMENT.yml
+    ```
+    To activate the newly created environment, run the following command:
+    ```bash
+    conda activate ENVIRONMENT.yml
+    ```
+
+    Now that the environment is activated, it is ready to continue
+
+2. Downloading Datasets
+    we need to download and install data sets to train and test our 
+3. Cloning or implementing codes from this repository
+    to continue  there are two ways cloning this repository or implementing the codes, to clone this repository write the following command into terminal
+    ```bash
+    git clone github.com/git@github.com:Mehdialmoo/Bash_commands.git
+    ```
+    now everything is ready to Start the journey!
+    (Do not forget to visit [Rubberduck](#) for help!)
 
 ## References
 
@@ -200,6 +176,8 @@ cv2.rectangle(image
 3. **YOLOv3: An Incremental Improvement**
    - Paper: [YOLOv3: An Incremental Improvement](./Documents/yolo%20v3.pdf)
 
-Please note that the code snippets and mathematical details can be found in the respective papers. Refer to the official YOLO repository on GitHub for the implementation:
+Please note that the code snippets and mathematical details can be found in the respective papers.official YOLO repository on GitHub and Webpages,for the implementation:
 
 - [YOLO GitHub Repository](https://github.com/AlexeyAB/darknet)
+- [YOLO Project Webpage](https://pjreddie.com/darknet/yolo/)
+- [V7 labs Webpage](https://www.v7labs.com/blog/yolo-object-detection)
