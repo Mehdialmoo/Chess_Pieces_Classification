@@ -170,9 +170,10 @@ to get ready for code implementation we need firstly to take some steps:
 
 2. Downloading Datasets
     we need to download and install data sets to train and test our trained module on it, for that we need to download the following:
-    +
-    +
-    +
+    + [PASCAL VOC 2007](https://www.kaggle.com/datasets/zaraks/pascal-voc-2007)
+    + [PASCAL VOC 2012](https://www.kaggle.com/datasets/huanghanchina/pascal-voc-2012)
+    + [MS COCO](https://www.kaggle.com/datasets/jeffaudi/coco-2014-dataset-for-yolov3/code)
+    + [Weights](https://www.kaggle.com/datasets/1cf520aba05e023f2f80099ef497a8f3668516c39e6f673531e3e47407c46694)
 3. Cloning or implementing codes from this repository
     to continue  there are two ways cloning this repository or implementing the codes, to clone this repository write the following command into terminal
     ```bash
