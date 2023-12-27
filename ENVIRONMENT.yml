@@ -1,4 +1,4 @@
-name: python_yolo_env
+name: ENVIRONMENT
 channels:
  - pytorch
  - defaults
