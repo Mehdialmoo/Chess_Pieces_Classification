@@ -41,7 +41,7 @@ class YOLODataSet():
         """ """
         label_path = os.path.join(
             self.label_dir, self.annotations.iloc[idx, 1])
-        bounding_boxes = np.roll(
+        bboxes = np.roll(
             np.loadtxt(fname=label_path, delimiter=" ", ndmin=2),
             shift=4, axis=1).tolist()
         img_path = os.path.join(self.img_dir, self.annotations.iloc[idx, 0])
@@ -50,8 +50,11 @@ class YOLODataSet():
         # condition checker
 
         if self.transform is True:
-            augmentations = self.transform(image=image, bbox=bounding_boxes)
+            augmentations = self.transform(image=image, bbox=bboxes)
             image = augmentations["image"]
-            bounding_boxes = augmentations["bounding_boxes"]
+            bboxes = augmentations["boboxes"]
 
         # (as: YOLOv1.PDF) below assumes 3 scale predictions  and same number of anchors per scale
+        targets = [torch.zeros((self.num_anchors_per_scale))]
+        for box in bboxes:
+            pass
