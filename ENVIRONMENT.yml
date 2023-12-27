@@ -13,6 +13,7 @@ dependencies:
     - pandas
     - matplotlib
     - opencv-python
+    - albumentations
     - scipy
     - pyyaml
     - tqdm
@@ -22,3 +23,4 @@ dependencies:
     - tensorboard
     - jupyterlab
     - coverage
+    
