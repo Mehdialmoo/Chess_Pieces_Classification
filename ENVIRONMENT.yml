@@ -1,6 +1,6 @@
 name: python_yolo_env
 channels:
- - pytorvh
+ - pytorch
  - defaults
  - conda-forge
 dependencies:
