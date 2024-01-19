@@ -12,7 +12,7 @@ To set up the project, follow these steps:
         - Copy code
         - or use git clone:
            ```
-            git clone https://github.com/yourusername/chess-pieces-classification.git
+            git clone git@github.com:Mehdialmoo/s5602288_Software_Eng.git
             cd chess-pieces-classification
            ```
 3. Install the required packages:
