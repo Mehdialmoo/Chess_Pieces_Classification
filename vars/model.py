@@ -6,8 +6,6 @@ import torch.nn.functional as F
 from pytorch_lightning import LightningModule
 
 
-
-
 class ConvolutionalNetwork(LightningModule):
     """
     DocString
@@ -34,11 +32,11 @@ class ConvolutionalNetwork(LightningModule):
         X = self.fc4(X)
         return F.log_softmax(X, dim=1)
 
-    def configure_optimizers(self):
-        optimizer = torch.optim.Adam(self.parameters(), lr=0.001)
+    def configure_optimizers(self, learning_rate=0.001):
+        optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
         return optimizer
 
-    def training_step(self, train_batch,):
+    def training_step(self, train_batch):
         X, y = train_batch
         y_hat = self(X)
         loss = F.cross_entropy(y_hat, y)
