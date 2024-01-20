@@ -6,21 +6,20 @@ import torch.nn.functional as F
 from pytorch_lightning import LightningModule
 
 
-from loading_data import ChessDB as DB
 
 
 class ConvolutionalNetwork(LightningModule):
     """
     DocString
     """
-    def __init__(self):
+    def __init__(self, labels):
         super(ConvolutionalNetwork, self).__init__()
         self.conv1 = nn.Conv2d(3, 6, 3, 1)
         self.conv2 = nn.Conv2d(6, 16, 3, 1)
         self.fc1 = nn.Linear(16 * 54 * 54, 120)
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 20)
-        self.fc4 = nn.Linear(20, len(DB.label_loader()))
+        self.fc4 = nn.Linear(20, len(labels))
 
     def forward(self, X):
 

@@ -4,16 +4,16 @@ DocString
 import os
 import torch
 import matplotlib.pyplot as plt
-
+import pytorch_lightning as pl
 
 from PIL import Image
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Dataset
 from torch.utils.data import random_split
 from torchvision import transforms as transforms
 from torchvision.datasets import ImageFolder
 
 
-class ChessDB(Dataset,pl.LightningDataModule):
+class ChessDB(Dataset, pl.LightningDataModule):
     """
     DocString
     """
@@ -24,11 +24,8 @@ class ChessDB(Dataset,pl.LightningDataModule):
         self.dir = directory
         self.transform = transform
         self.batch_size = batch_size
-        folders = os.listdir(self.dir)
-        dir_list = [os.path.join(self.dir, path) for path in folders]
-        self.labels = folders
-        self.dir_list = dir_list
-        self.data_dict = self.filecounter()
+        self.labels = os.listdir(self.dir)
+        self.dir_list = [os.path.join(self.dir, path) for path in self.labels]
         self.dataset, self.dataset_label = self.data_loader()
 
     # implement __len__
