@@ -6,10 +6,12 @@ import glob
 import matplotlib.pyplot as plt
 
 
-def create_CSV(dir):
-    df = pd.DataFrame({'image_path': sorted(glob.glob(dir))})
+def create_CSV(dir, out_dir):
+    DIR = str(dir)+"/*/*" 
+    df = pd.DataFrame({'image_path': sorted(glob.glob(DIR))})
     df['class'] = df['image_path'].apply(lambda x: x.split('/')[-2])
-    df.to_csv(dir+'/out.csv')
+    print(df.head())
+    df.to_csv(out_dir+'Chess.csv')
 
 
 def pre_process(dir_list):
@@ -67,5 +69,5 @@ def plot_img(dir_list, labels, image_no=8):
             plt.title(labels[lbl])
             plt.imshow(i)
             plt.imshow(i, cmap='viridis')
-            lbl += 1
             plt.tight_layout()
+        lbl += 1

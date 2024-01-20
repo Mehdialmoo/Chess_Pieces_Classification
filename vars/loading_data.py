@@ -2,14 +2,11 @@
 DocString
 """
 import os
-import torch
 import matplotlib.pyplot as plt
 import pytorch_lightning as pl
 
-from PIL import Image
 from torch.utils.data import DataLoader, Dataset
 from torch.utils.data import random_split
-from torchvision import transforms as transforms
 from torchvision.datasets import ImageFolder
 
 
@@ -51,11 +48,13 @@ class ChessDB(Dataset, pl.LightningDataModule):
     def db_split(self, train_ratio, valid_ratio, test_ratio):
         """DocString"""
         if train_ratio+valid_ratio+test_ratio == 1:
-            dataset = ImageFolder(root=self.root_dir, transform=self.transform)
+            dataset = ImageFolder(root=self.dir, transform=self.transform)
             n_data = len(dataset)
-            no_train = int(train_ratio * n_data)
-            no_valid = int(valid_ratio * n_data)
-            no_test = int(test_ratio * n_data)
+            no_train = round(train_ratio * n_data)
+            no_valid = round(valid_ratio * n_data)
+            no_test = round(test_ratio * n_data)
+
+            print(no_test, no_train, no_valid)
 
             train_db, valid_db, test_db = random_split(
                 dataset, [no_train, no_valid, no_test])
@@ -69,26 +68,23 @@ class ChessDB(Dataset, pl.LightningDataModule):
             self.test_dataset = DataLoader(test_db, batch_size=self.batch_size)
 
             # Create a bar plot of image counts for each class
-            fig, ax = plt.subplots(figsize=(8.5, 7))
+            fig, ax = plt.subplots(figsize=(2, 5))
 
-            ax.bar(self.labels, no_train, width=0.4,
-                   label="Train", color="red")
-            ax.bar(self.labels, no_valid, width=0.4,
-                   label="Validation", bottom=no_train, color="blue")
-            ax.bar(self.labels, no_test, width=0.4,
-                   label="Test", bottom=no_train+no_valid, color="green")
+            ax.bar("DB", no_train, width=0.4,
+                   label="Train", color="#0b090a")
+            ax.bar("DB", no_valid, width=0.4,
+                   label="Validation", bottom=no_train, color="#ba181b")
+            ax.bar("DB", no_test, width=0.4,
+                   label="Test", bottom=no_train+no_valid, color="#b0c4de")
 
             # Set the y-axis limit and add labels for the x and y axes
-            ax.set_ylim(0, 200)
+            ax.set_ylim(0, 1500)
             plt.ylabel("Image Count")
             plt.xlabel("Class")
-            plt.title("Chess Piece Image Count by Class")
+            plt.title("Chess Piece Image Count")
             ax.legend()
         else:
             print("invalid ratio")
-
-    def label_loader(self):
-        return self.dataset_label
 
     def train_dataloader(self):
         return self.train_dataset
