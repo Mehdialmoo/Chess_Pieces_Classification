@@ -1,0 +1,17 @@
+name: SE_ENV
+channels:
+  - pytorch
+dependencies:
+  - pytorch
+  - torchvision
+  - pip
+  - pip:
+    - torchsummary
+    - pytorch-lightning
+    - tensorboard
+    - jupyterlab
+    - numpy
+    - pandas
+    - matplotlib
+    - coverage
+    - opencv-python
