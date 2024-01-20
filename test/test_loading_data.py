@@ -1,34 +1,38 @@
 import sys
 import unittest
+from torchvision import transforms
+
+
 
 
 # caution: path[0] is reserved for script path (or '' in REPL)
 sys.path.insert(1, '/../SE/vars/')
-import loading_data
 
+from vars.loading_data import ChessDB as DB
+from vars.utilities import *
+
+
+
+PATH = "./Data/Chess/"
+CSV_PATH =  "./Data/"
+BATCH = 32
+
+transform=transforms.Compose([
+        transforms.RandomRotation(10),      # rotate +/- 10 degrees
+        transforms.RandomHorizontalFlip(),  # reverse 50% of images
+        transforms.Resize(224),             # resize shortest side to 224 pixels
+        transforms.CenterCrop(224),         # crop longest side to 224 pixels at center
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406],
+                             [0.229, 0.224, 0.225])
+])
 
 class Testloading_data(unittest.TestCase):
     """"DocString"""
     def setUp(self) -> None:
-        self.data = ChessDB("Data/Chess")
+        self.data = DB("Data/Chess")
 
     def test_functions(self):
-        """"DocString"""
-        print(self.data.dir)
-        print(self.data.dir_list)
-        print(self.data.labels)
-        a = self.data.filecounter()
-        print (a)
-        print(a .keys())
-        print(a.values())
-        self.data.plot_bar()
-        img, label = self.data.data_loader()
-        print(img[0][12].shape)
-        print(label[100])
-        print(len(img))
-        self.data.plot_img()
-        self.data.pre_process()
-        self.data.db_split("Data/ready_data")
 
 
 if __name__ == "__main__":
