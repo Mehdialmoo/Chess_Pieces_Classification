@@ -12,9 +12,8 @@ from vars.loading_data import ChessDB as DB
 from vars.utilities import *
 
 
-
 PATH = "./Data/Chess/"
-CSV_PATH =  "./Data/"
+CSV_PATH = "./Data/"
 BATCH = 32
 
 transform=transforms.Compose([
@@ -27,13 +26,14 @@ transform=transforms.Compose([
                              [0.229, 0.224, 0.225])
 ])
 
+
 class Testloading_data(unittest.TestCase):
     """"DocString"""
     def setUp(self) -> None:
         self.data = DB("Data/Chess")
 
     def test_functions(self):
-
+        pass
 
 if __name__ == "__main__":
     unittest.main()
