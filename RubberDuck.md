@@ -12,8 +12,18 @@ Rubber duck debugging, also known as rubber ducking, is a problem-solving method
 
 __Problem explanation:__ 
 
-2 GB is the limit for files to be uploaded into GitHub, for GitHub free and Pro. However, there may also be limitations on internet connection or the time it takes to upload that large file. because the combination of files that we need exceed over 20GB in total.
+2 GB is the limit for files to be uploaded into GitHub, for GitHub free and Pro. However, there may also be limitations on internet connection or the time it takes to upload that large file.
 
 __Problem Solving Solution:__
 
 upload the download links for the DataSets instead.
+
+# Different image size and different image file type
+
+__Problem explanation:__ 
+
+in the datasets there are different files from .jpg, .png, .svg there is a need for normalizing all the data with the size and name.
+
+__Problem Solving Solution:__
+
+created a python file to preproccess and rename all the file into a structured way this file is avilable with [utilities.py](./vars/utilities.py) name.

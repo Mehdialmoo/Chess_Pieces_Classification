@@ -1,22 +1,25 @@
 # **Classification of Chess Pieces using CNN, PyTorch and PyTorch Lightning**
 
-1. Introduction
+## 1. Introduction
 This repository contains a simple Convolutional Neural Network (CNN) implemented using PyTorch and PyTorch Lightning to classify chess pieces. The model is trained on a custom dataset of chess pieces images.
 
-2. Setup
+## 2. Setup
 To set up the project, follow one of these steps:
 - Download
 - Copy code
 - use git clone:
-```bash
-git clone git@github.com:Mehdialmoo/s5602288_Software_Eng.git
-cd chess-pieces-classification
-```
-2.1. Install the required packages:
-+ use the Environment file:
-```bash
-conda create .....yml
-conda activate SE_ENV
-```
-3. Dataset
-The dataset consists of chess pieces images collected from various sources. It contains 6 classes: King, Queen, Rook, Bishop, Knight, and Pawn. The dataset is split into training and testing sets with a ratio of 60:20:20
+    ```bash
+    git clone git@github.com:Mehdialmoo/s5602288_Software_Eng.git
+    cd chess-pieces-classification
+    ```
+ - Install the required packages:
+ - use the Environment file:
+   ```bash
+   conda create ENVIRONMENT.yml
+   conda activate SE_ENV
+   ```
+## 3. Dataset
+The dataset consists of chess pieces images collected from various sources. It contains 6 classes: King, Queen, Rook, Bishop, Knight, and Pawn. The dataset is split into training and testing sets with a ratio of 60:20:20. this dataset is a combination of  [Chessman Dataset](https://www.kaggle.com/datasets/niteshfre/chessman-image-dataset) & [Chess Pieces Detection Images Dataset](https://www.kaggle.com/datasets/anshulmehtakaggl/chess-pieces-detection-images-dataset?rvi=1). these to datasets are merged and preproccessed, including resizing and renaming and creating a CSV file including labels and addresses, into [ChessDB]() to download each of these data sets just click on the name of the datasets. if you are not usinf [ChessDB]() , it is encouraged to run the preprocessing functions from [utilities.py](./vars/utilities.py) file.
+
+## 4.
+

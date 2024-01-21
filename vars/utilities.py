@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 def create_CSV(dir, out_dir):
-    DIR = str(dir)+"/*/*" 
+    DIR = str(dir)+"/*/*"
     df = pd.DataFrame({'image_path': sorted(glob.glob(DIR))})
     df['class'] = df['image_path'].apply(lambda x: x.split('/')[-2])
     print(df.head())
@@ -44,14 +44,13 @@ def plot_bar(dir, labels):
 
     k = d_dict.keys()
     v = d_dict.values()
+    color = ['lightblue', 'blue', 'purple', 'red', 'green', 'yellow']
     plt.figure(figsize=(10, 4))
-    bars = plt.bar(k, v)
-    bars[0].set_color('green')
-    bars[1].set_color('black')
-    bars[2].set_color('blue')
-    bars[3].set_color('yellow')
-    bars[4].set_color('purple')
-    bars[5].set_color('orange')
+
+    fig, ax = plt.subplots()
+    bar_container = ax.bar(k, v, color=color)
+    ax.set(ylabel='sample number', title='ChessDB', ylim=(0, 500))
+    ax.bar_label(bar_container, fmt='{:,.0f}')
     plt.show()
 
 
@@ -67,7 +66,6 @@ def plot_img(dir_list, labels, image_no=8):
             i_d = os.path.join(path, img)
             i = plt.imread(i_d, 0)
             plt.title(labels[lbl])
-            plt.imshow(i)
             plt.imshow(i, cmap='viridis')
             plt.tight_layout()
         lbl += 1
