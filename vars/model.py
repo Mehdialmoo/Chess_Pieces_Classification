@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-# from torchvision import models
-# from torchvision import transforms
+import torch.nn.functional as func
 from pytorch_lightning import LightningModule
 
 
@@ -19,18 +17,17 @@ class ConvolutionalNetwork(LightningModule):
         self.fc3 = nn.Linear(84, 20)
         self.fc4 = nn.Linear(20, len(labels))
 
-    def forward(self, X):
-
-        X = F.relu(self.conv1(X))
-        X = F.max_pool2d(X, 2, 2)
-        X = F.relu(self.conv2(X))
-        X = F.max_pool2d(X, 2, 2)
-        X = X.view(-1, 16 * 54 * 54)
-        X = F.relu(self.fc1(X))
-        X = F.relu(self.fc2(X))
-        X = F.relu(self.fc3(X))
-        X = self.fc4(X)
-        return F.log_softmax(X, dim=1)
+    def forward(self, tensor):
+        tensor = func.relu(self.conv1(tensor))
+        tensor = func.max_pool2d(tensor, 2, 2)
+        tensor = func.relu(self.conv2(tensor))
+        tensor = func.max_pool2d(tensor, 2, 2)
+        tensor = tensor.view(-1, 16 * 54 * 54)
+        tensor = func.relu(self.fc1(tensor))
+        tensor = func.relu(self.fc2(tensor))
+        tensor = func.relu(self.fc3(tensor))
+        tensor = self.fc4(tensor)
+        return func.log_softmax(tensor, dim=1)
 
     def configure_optimizers(self, learning_rate=0.001):
         optimizer = torch.optim.Adam(self.parameters(), lr=learning_rate)
@@ -39,7 +36,7 @@ class ConvolutionalNetwork(LightningModule):
     def training_step(self, train_batch):
         X, y = train_batch
         y_hat = self(X)
-        loss = F.cross_entropy(y_hat, y)
+        loss = func.cross_entropy(y_hat, y)
         pred = y_hat.argmax(dim=1, keepdim=True)
         acc = pred.eq(y.view_as(pred)).sum().item() / y.shape[0]
         self.log("train_loss", loss)
@@ -49,7 +46,7 @@ class ConvolutionalNetwork(LightningModule):
     def validation_step(self, val_batch):
         X, y = val_batch
         y_hat = self(X)
-        loss = F.cross_entropy(y_hat, y)
+        loss = func.cross_entropy(y_hat, y)
         pred = y_hat.argmax(dim=1, keepdim=True)
         acc = pred.eq(y.view_as(pred)).sum().item() / y.shape[0]
         self.log("val_loss", loss)
@@ -58,7 +55,7 @@ class ConvolutionalNetwork(LightningModule):
     def test_step(self, test_batch):
         X, y = test_batch
         y_hat = self(X)
-        loss = F.cross_entropy(y_hat, y)
+        loss = func.cross_entropy(y_hat, y)
         pred = y_hat.argmax(dim=1, keepdim=True)
         acc = pred.eq(y.view_as(pred)).sum().item() / y.shape[0]
         self.log("test_loss", loss)
