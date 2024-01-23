@@ -20,6 +20,7 @@ class model_run():
         self._batch_sz = batch_size
         self._ratio = ratio
         self._lr = learning_rate
+        self.ES = EarlyStopping(monitor="train_loss", mode="min", patience=3)
 
     def setup_data(self):
         self.data = loading_data.ChessDB(directory=self._dir,
@@ -42,6 +43,15 @@ class model_run():
         self.model = ConvolutionalNetwork.load_from_checkpoint(
             checkpoint_path=checkpoint_dir, labels=self.data.labels)
 
+    def load_full(self, checkpoint_dir):
+        self.model = ConvolutionalNetwork(labels=self.data.labels)
+        trainer = pl.Trainer(max_epochs=self._epoch,
+                             accelerator='gpu',
+                             callbacks=self.ES,
+                             default_root_dir="./")
+        # automatically restores model, epoch, step, LR schedulers, etc...
+        trainer.fit(self.model, self.train_DB, ckpt_path=checkpoint_dir)
+
     def train_run(self):
         """
         self.trainer = pl.Trainer(max_epochs=self._epoch,
@@ -49,13 +59,12 @@ class model_run():
                                   accelerator=acc,
                                   default_root_dir="./checkpoints/")
         """
-        EarlyStop = EarlyStopping(monitor="train_loss", mode="min", patience=3)
         self.trainer = pl.Trainer(max_epochs=self._epoch,
                                   accelerator='gpu',
-                                  callbacks=EarlyStop,
-                                  default_root_dir="./checkpoints/")
+                                  callbacks=self.ES,
+                                  default_root_dir="./")
         self.model.setup(stage='fit')
-        self.trainer.fit(self.model, self.train_DB)
+        self.trainer.fit(self.model, train_dataloaders=self.train_DB)
 
     def validation_run(self):
         self.data.setup(stage='validate')

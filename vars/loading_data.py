@@ -54,9 +54,10 @@ class ChessDB(Dataset, pl.LightningDataModule):
             no_valid = round(valid_ratio * n_data)
             no_test = round(test_ratio * n_data)
 
-            print(f"""Splited data : tain sample number:{no_train}
-                  \nvalidation sample number:{no_valid}
-                    \ntest sample number:{no_test}""")
+            print(f"""Splited data :
+                  tain sample number:{no_train}
+                  validation sample number:{no_valid}
+                  test sample number:{no_test}""")
 
             train_db, valid_db, test_db = random_split(
                 dataset, [no_train, no_valid, no_test])
@@ -72,11 +73,11 @@ class ChessDB(Dataset, pl.LightningDataModule):
             # Create a bar plot of image counts for each class
             fig, ax = plt.subplots(figsize=(2, 5))
 
-            ax.bar("DB", no_train, width=0.4,
+            ax.bar("DB", no_train, width=0.2,
                    label="Train", color="navy")
-            ax.bar("DB", no_valid, width=0.4,
+            ax.bar("DB", no_valid, width=0.2,
                    label="Validation", bottom=no_train, color="steelblue")
-            ax.bar("DB", no_test, width=0.4,
+            ax.bar("DB", no_test, width=0.2,
                    label="Test", bottom=no_train+no_valid, color="royalblue")
 
             # Set the y-axis limit and add labels for the x and y axes
