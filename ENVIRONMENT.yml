@@ -8,10 +8,8 @@ dependencies:
   - pip:
     - torchsummary
     - pytorch-lightning
-    - tensorboard
     - jupyterlab
     - numpy
     - pandas
     - matplotlib
-    - coverage
-    - opencv-python
+    - wandb
