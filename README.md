@@ -23,7 +23,16 @@ project
 
 ## **1. code implementation explained**
 this project consists of four main files that all are mainly inside [vars](./vars/) folder:
-* loading_data : 
+### 1.1. [loading_data](./vars/loading_data.py) : 
+This file is responsible for data augmentation using pytorch transformers and splitting datasets. This python file contains a custom PyTorch Dataset and LightningDataModule class for loading and processing a chess dataset. The ChessDB class inherits from both Dataset and LightningDataModule to load the data and provide methods for splitting the data into training, validation, and test sets.The class takes in a directory path to the chess dataset, a PyTorch transform to apply to the data, and a batch size for training.
+* The __init__ dunder method initializes the class variables, including the dataset and dataset labels.
+* The __len__ dunder method returns the length of the dataset.
+* The __getitem__ dunder method returns a single data sample and its corresponding label at a given index.
+* The data_loader method loads the raw data and labels from the dataset directory.
+* The db_split method splits the dataset into training, validation, and test sets based on user-specified ratios. It also creates a bar plot of the number of samples in each dataset split.
+* The train_dataloader, valid_dataloader, and test_dataloader methods return the respective PyTorch DataLoader objects for the training, validation, and test sets.
+
+Note: The code assumes that the chess dataset is organized into subdirectories for each class, and each subdirectory contains the images for that class. """
 
 * model : 
    
