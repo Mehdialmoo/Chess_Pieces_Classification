@@ -13,3 +13,6 @@ dependencies:
     - pandas
     - matplotlib
     - wandb
+    - sklearn
+    - opencv-python
+    

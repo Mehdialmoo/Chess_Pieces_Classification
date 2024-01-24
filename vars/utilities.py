@@ -7,9 +7,11 @@ import matplotlib.pyplot as plt
 
 
 def create_CSV(dir, out_dir):
+    """Create a CSV file with the image names with directory path
+    and their labels"""
     DIR = str(dir)+"/*/*"
     df = pd.DataFrame({'image_path': sorted(glob.glob(DIR))})
-    df['class'] = df['image_path'].apply(lambda x: x.split('/')[-2])
+    df['class'] = df['image_path'].apply(lambda val: val.split('/')[-2])
     print(df.head())
     df.to_csv(out_dir+'Chess.csv')
 
@@ -24,8 +26,8 @@ def pre_process(dir_list):
         for image_path in image_paths:
             i += 1
             img = cv2.imread(image_path)
-            """img = cv2.resize
-            (img, (224, 224), interpolation = cv2.INTER_CUBIC)"""
+            img = cv2.resize(img, (224, 224),
+                             interpolation=cv2.INTER_CUBIC)
             img = img.astype(np.float32)
             cv2.imwrite(image_path, img)
             os.rename(
@@ -35,7 +37,6 @@ def pre_process(dir_list):
 def plot_bar(dir, labels):
     """this function plots a barchart that ables the user to
        visulise the size of samples in each class"""
-
     image_counts = [
         len(os.listdir(os.path.join(dir, class_name)))
         for class_name in labels]

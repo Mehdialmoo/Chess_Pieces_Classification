@@ -1,7 +1,8 @@
 import torch
 import vars.loading_data as loading_data
-from vars.model import ConvolutionalNetwork
 import pytorch_lightning as pl
+
+from vars.model import ConvolutionalNetwork
 from sklearn.metrics import classification_report
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
@@ -11,9 +12,13 @@ from pytorch_lightning.callbacks.early_stopping import EarlyStopping
 
 
 class model_run():
-    """DocString"""
+    """this class makes it easier for non developers to setup
+    the data and model,train and test a convolutional neural network on
+    dataset and to be able to retrive pretrained models as checkpoints"""
     def __init__(self, data_directory, transformer,
                  batch_size, ratio, epoch, learning_rate) -> None:
+        """ creates an object to save all the attribuites we need
+        to train the model"""
         self._dir = data_directory
         self._epoch = epoch
         self._trans = transformer
@@ -23,6 +28,7 @@ class model_run():
         self.ES = EarlyStopping(monitor="train_loss", mode="min", patience=3)
 
     def setup_data(self):
+        # this function uses loading_data file  to load and splite the data
         self.data = loading_data.ChessDB(directory=self._dir,
                                          transform=self._trans,
                                          batch_size=self._batch_sz)
@@ -34,16 +40,20 @@ class model_run():
         self.test_DB = self.data.test_dataloader()
 
     def setup_model(self):
-        # self.logger = logger()
+        """create a new instance of our convolutional network and
+        checks if its avalible to be run over gpu"""
+        # self.logger = logger() #used for wandb logger
         torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = ConvolutionalNetwork(labels=self.data.labels)
         self.model.configure_optimizers(learning_rate=self._lr)
 
     def load_model(self, checkpoint_dir):
+        # loads in weights from a previous training session
         self.model = ConvolutionalNetwork.load_from_checkpoint(
             checkpoint_path=checkpoint_dir, labels=self.data.labels)
 
     def load_full(self, checkpoint_dir):
+        # loads in everything including optimizer and scheduler
         self.model = ConvolutionalNetwork(labels=self.data.labels)
         trainer = pl.Trainer(max_epochs=self._epoch,
                              accelerator='gpu',
@@ -53,28 +63,35 @@ class model_run():
         trainer.fit(self.model, self.train_DB, ckpt_path=checkpoint_dir)
 
     def train_run(self):
+        """trains the model on traning set of data"""
         """
         self.trainer = pl.Trainer(max_epochs=self._epoch,
                                   logger=logger(),
-                                  accelerator=acc,
+                                  accelerator="cpu",
                                   default_root_dir="./checkpoints/")
+        # for training on cpu
         """
         self.trainer = pl.Trainer(max_epochs=self._epoch,
                                   accelerator='gpu',
                                   callbacks=self.ES,
-                                  default_root_dir="./")
+                                  default_root_dir="./")  # for training on gpu
         self.model.setup(stage='fit')
         self.trainer.fit(self.model, train_dataloaders=self.train_DB)
 
     def validation_run(self):
+        """validates the current state of the model
+        against the validation set"""
         self.data.setup(stage='validate')
         self.trainer.validate(dataloaders=self.validation_DB, ckpt_path='best')
 
     def test_run(self):
+        """tests the trained model against the testing set"""
         self.data.setup(stage='test')
         self.trainer.test(dataloaders=self.test_DB, ckpt_path='best')
 
     def evaluation(self):
+        """evaluate the performance of the model
+        using metrics defined during initialization"""
         self.model.eval()
         ground_truth = []
         model_outputs = []
