@@ -1,3 +1,5 @@
-Data
+Data/Chess
+Data/Chess.csv
+vars/my_wandb_logger.py
 lightning_logs
 wandb

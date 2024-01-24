@@ -1,5 +1,5 @@
 # ***Chess Pieces Classification***
-[]()
+[](./Data/PIC/OIG.jpg)
 ## **Abstract**
 
 **keywords:** 
@@ -44,24 +44,15 @@ The class has several methods:
 Note: The code assumes that the chess dataset is organized into subdirectories for each class, and each subdirectory contains the images for that class. """
 
 ### 1.2. [model](./vars/model.py) :
-This code defines a convolutional neural network (CNN) using the PyTorch library and the LightningModule framework from PyTorch Lightning. The network is designed for image classification tasks.
-
-Here's a breakdown of the code:
-
-Import necessary libraries and modules:
-torch: PyTorch core library
-torch.nn: PyTorch neural network module
-torch.nn.functional: PyTorch functional module
-pytorch_lightning.LightningModule: PyTorch Lightning's base class for building a LightningModule
-Define the ConvolutionalNetwork class, which inherits from LightningModule.
-In the __init__ method, define the layers of the CNN:
-self.conv1: A 2D convolutional layer with 3 input channels (for RGB images), 6 output channels, a kernel size of 3x3, and stride of 1.
-self.conv2: A 2D convolutional layer with 6 input channels, 16 output channels, a kernel size of 3x3, and stride of 1.
-self.fc1: A fully connected (linear) layer with 16 * 54 * 54 input neurons (flattened feature map size) and 120 output neurons.
-self.fc2: A fully connected (linear) layer with 120 input neurons and 84 output neurons.
-self.fc3: A fully connected (linear) layer with 84 input neurons and 20 output neurons.
-self.fc4: A fully connected (linear) layer with 20 input neurons and len(labels) output neurons, where labels is an input argument representing the number of classes in the classification task.
-In the forward method, define the forward pass of the network:
+This file defines a convolutional neural network (CNN) using the PyTorch library and the LightningModule framework from PyTorch Lightning that is The network is designed for image classification task, firstly it defines the ConvolutionalNetwork class, which inherits from LightningModule.
+* the __init__ method, define the layers of the CNN:
+   - self.conv1: A 2D convolutional layer with 3 input channels (for RGB images), 6 output channels, a kernel size of 3x3, and stride of 1.
+   - self.conv2: A 2D convolutional layer with 6 input channels, 16 output channels, a kernel size of 3x3, and stride of 1.
+   - self.fc1: A fully connected (linear) layer with 16 * 54 * 54 input neurons (flattened feature map size) and 120 output neurons.
+   - self.fc2: A fully connected (linear) layer with 120 input neurons and 84 output neurons.
+   - self.fc3: A fully connected (linear) layer with 84 input neurons and 20 output neurons.
+   - self.fc4: A fully connected (linear) layer with 20 input neurons and len(labels) output neurons, where labels is an input argument representing the number of classes in the classification task.
+* In the forward method, define the forward pass of the network:
 Apply ReLU activation to the output of self.conv1.
 Apply 2x2 max pooling to the output of self.conv1.
 Apply ReLU activation to the output of self.conv2.
@@ -69,24 +60,51 @@ Apply 2x2 max pooling to the output of self.conv2.
 Flatten the feature map.
 Apply ReLU activation to the output of self.fc1, self.fc2, and self.fc3.
 Apply log softmax activation to the output of self.fc4 to get the class probabilities.
-In the configure_optimizers method, define the optimizer for training:
+* In the configure_optimizers method, define the optimizer for training:
 Use Adam optimizer with a learning rate of 0.001.
-In the training_step method, define the training step:
+* In the training_step method, define the training step:
 Compute the model's output (class probabilities) using the forward method.
 Calculate the cross-entropy loss.
 Calculate the accuracy by comparing the predicted class with the ground truth.
 Log the training loss and accuracy.
-In the validation_step method, define the validation step:
+* In the validation_step method, define the validation step:
 Compute the model's output (class probabilities) using the forward method.
 Calculate the cross-entropy loss.
 Calculate the accuracy by comparing the predicted class with the ground truth.
 Log the validation loss and accuracy.
-In the test_step method, define the test step:
+* In the test_step method, define the test step:
 Compute the model's output (class probabilities) using the forward method.
 Calculate the cross-entropy loss.
 Calculate the accuracy by comparing the predicted class with the ground truth.
 Log the test loss and accuracy.
-The code does not include data loading or training loop, which should be added separately using PyTorch Lightning's Trainer class.
+
+Note: This file does not include data loading but uses the [loading_data](./vars/loading_data.py) to do so. for training loop, it uses Pytorch_lightning fit method to train the model that are included in [model_run](./vars/model_run.py) file , other needed functions as like saving and loading log checkpoints and  validating and testing are implemented using PyTorch Lightning in [model_run](./vars/model_run.py) file, but first lets discuss why PyTorch Lightning and CNN are use for this project.
+
+### 1.2.1 why CNN Model:
+A Convolutional Neural Network (CNN) is a type of artificial neural network that is commonly used for image processing, classification, and recognition tasks[(Sharma and Phonsa 2021)](). CNNs are designed to automatically and adaptively learn spatial hierarchies of features from images, which makes them particularly well-suited for tasks such as object detection, image segmentation, and image classification.[(Sharma and Phonsa 2021)]()
+
+In the context of chess pieces, a CNN can be used to process images of chess pieces and classify them into different categories, such as pawn, rook, knight, bishop, queen, and king. This can be useful in a variety of applications, such as automated chess analysis, chess notation conversion, and chess game analysis.
+
+The reason why CNNs are good for processing chess piece images is because they can effectively learn and extract features that are relevant for chess piece classification [(Quintana et al. 2020)](). For example, a CNN can learn to recognize the distinct shapes and patterns of different chess pieces, such as the cross-shaped pattern of a rook or the curved shape of a knight. Additionally, CNNs can learn to be invariant to variations in image scale, orientation, and lighting conditions, which can help improve the robustness and accuracy of chess piece classification[(Yamashita et al. 2018)]().
+
+Overall, CNNs provide a powerful and flexible framework for processing and classifying chess piece images, and can help enable a wide range of chess-related applications and analyses.
+
+### 1.2.2 why Pytorch_lightning
+In the context of chess piece classification, a CNN can be used to process images of chess pieces and classify them into different categories, such as pawn, rook, knight, bishop, queen, and king. PyTorch Lightning can simplify the training process by automating tasks such as logging of training metrics, saving and loading checkpoints, and progress tracking. This enables you to focus on building the CNN model and improving its accuracy[(Falcon 2020)]().
+
+ 
+* multiple features: It offers lightweight features such as the option to easily manage training, testing , loading previous checkpoints based on "latest train", "besd accuracy" and etc. on a distributed system, using automatic mixed precision for better speed, and accuracy.[(Maurya et al. 2023)]()
+
+* Automatic Integration of Training Logging: PyTorch Lightning simplifies the training process by automating tasks such as logging of training metrics, saving and loading checkpoints, and progress tracking. This enables you to focus on building the deep learning model[(Maurya et al. 2023)]().
+
+* advance Model logging loading: PyTorch Lightning offers an integrated trainer that allows you to easily save your models by weights and hyperparameters metrics this enalbles the user to load the model fully or only load the weights and continue with the training or testing.
+alsother are option to load the latest log or the best log from accuracy aspect. This simplifies the process of debugging your deep learning model[(Maurya et al. 2023)]().
+
+* Seamless Extension of Models: PyTorch Lightning makes it easy to extend the capabilities of your model by offering pre-built models or easier  and components. This enables you to easily plug-and-play various model architectures, layers, and callbacks into your model[(Maurya et al. 2023)]()
+
+* Integration with Existing Code: PyTorch Lightning can be easily integrated with existing PyTorch code. This ensures that you can utilize the features and functionalities provided by PyTorch Lightning while still maintaining compatibility with your existing codebase[(Maurya et al. 2023)]()
+
+In conclusion, using PyTorch Lightning for chess piece classification provides several advantages such as easy integration with existing PyTorch code, automatic training, validating, testing and evaluating, plus saving and loading logs, and simplified model debugging. This ultimately enables you to focus on building and improving your deep learning model without having to worry about the intricacies of the underlying framework.
    
 ### 1.3. [model_run](./vars/model_run.py) :
 
@@ -120,33 +138,9 @@ this file comtains methods that can be used to pre-process a dataset of images f
 Overall, these functions can be used to pre-process the chess image dataset and prepare it for loading and training a machine learning model.
 
 another important part of this project is unit testing files that are including in [test](./test/) folder. other files include [data](./Data/) folder that have been disscussed in the following sectons
-## 2. why CNN Model:
-A Convolutional Neural Network (CNN) is a type of artificial neural network that is commonly used for image processing, classification, and recognition tasks[(Sharma and Phonsa 2021)](). CNNs are designed to automatically and adaptively learn spatial hierarchies of features from images, which makes them particularly well-suited for tasks such as object detection, image segmentation, and image classification.[(Sharma and Phonsa 2021)]()
 
-In the context of chess pieces, a CNN can be used to process images of chess pieces and classify them into different categories, such as pawn, rook, knight, bishop, queen, and king. This can be useful in a variety of applications, such as automated chess analysis, chess notation conversion, and chess game analysis.
 
-The reason why CNNs are good for processing chess piece images is because they can effectively learn and extract features that are relevant for chess piece classification [(Quintana et al. 2020)](). For example, a CNN can learn to recognize the distinct shapes and patterns of different chess pieces, such as the cross-shaped pattern of a rook or the curved shape of a knight. Additionally, CNNs can learn to be invariant to variations in image scale, orientation, and lighting conditions, which can help improve the robustness and accuracy of chess piece classification[(Yamashita et al. 2018)]().
-
-Overall, CNNs provide a powerful and flexible framework for processing and classifying chess piece images, and can help enable a wide range of chess-related applications and analyses.
-
-## 3. why Pytorch_lightning
-In the context of chess piece classification, a CNN can be used to process images of chess pieces and classify them into different categories, such as pawn, rook, knight, bishop, queen, and king. PyTorch Lightning can simplify the training process by automating tasks such as logging of training metrics, saving and loading checkpoints, and progress tracking. This enables you to focus on building the CNN model and improving its accuracy[(Falcon 2020)]().
-
- 
- * multiple features: It offers lightweight features such as the option to easily manage training, testing , loading previous checkpoints based on "latest train", "besd accuracy" and etc. on a distributed system, using automatic mixed precision for better speed, and accuracy.[(Maurya et al. 2023)]()
-
-* Automatic Integration of Training Logging: PyTorch Lightning simplifies the training process by automating tasks such as logging of training metrics, saving and loading checkpoints, and progress tracking. This enables you to focus on building the deep learning model[(Maurya et al. 2023)]().
-
-* advance Model logging loading: PyTorch Lightning offers an integrated trainer that allows you to easily save your models by weights and hyperparameters metrics this enalbles the user to load the model fully or only load the weights and continue with the training or testing.
-alsother are option to load the latest log or the best log from accuracy aspect. This simplifies the process of debugging your deep learning model[(Maurya et al. 2023)]().
-
-* Seamless Extension of Models: PyTorch Lightning makes it easy to extend the capabilities of your model by offering pre-built models or easier  and components. This enables you to easily plug-and-play various model architectures, layers, and callbacks into your model[(Maurya et al. 2023)]()
-
-* Integration with Existing Code: PyTorch Lightning can be easily integrated with existing PyTorch code. This ensures that you can utilize the features and functionalities provided by PyTorch Lightning while still maintaining compatibility with your existing codebase[(Maurya et al. 2023)]()
-
-In conclusion, using PyTorch Lightning for chess piece classification provides several advantages such as easy integration with existing PyTorch code, automatic training, validating, testing and evaluating, plus saving and loading logs, and simplified model debugging. This ultimately enables you to focus on building and improving your deep learning model without having to worry about the intricacies of the underlying framework.
-
-## 
+other parts of this  
 # Setup
 To set up the project, follow one of these steps:
 - Download
