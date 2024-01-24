@@ -1,5 +1,5 @@
 # RubberDuck
-![](./Documents/PIC/RubberDuck.png)
+![](./Data/PIC/O.jpg)
 # Table of content
 - [Introduction](#introduction)
 - [uploading Dataset to github Problem](#)

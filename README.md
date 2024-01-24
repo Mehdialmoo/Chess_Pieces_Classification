@@ -1,5 +1,5 @@
 # ***Chess Pieces Classification***
-[](./Data/PIC/OIG.jpg)
+![](./Data/PIC/OIG.jpg)
 ## **Abstract**
 
 **keywords:** 

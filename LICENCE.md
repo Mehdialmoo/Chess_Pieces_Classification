@@ -1,4 +1,4 @@
-# MIT License
+# MIT Licence
 
 Copyright (c) 2023 Seyed Mehdi AlMousavi (A.K.A : Mehdi Almoo)
 
