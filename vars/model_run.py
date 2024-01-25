@@ -67,14 +67,23 @@ class model_run():
         """trains the model on traning set of data"""
         """
         self.trainer = pl.Trainer(max_epochs=self._epoch,
-                                  logger=logger(),
                                   accelerator="cpu",
                                   default_root_dir="./checkpoints/")
+
         # for training on cpu
         """
+
+        """
+        self.trainer = pl.Trainer(max_epochs=self._epoch,
+                                  logger=logger(),
+                                  accelerator="gpupu",
+                                  default_root_dir="./checkpoints/")
+
+        # for training on gpu and use of  wandb logger
+        """
+
         self.trainer = pl.Trainer(max_epochs=self._epoch,
                                   accelerator='gpu',
-                                  logger=logger(),
                                   callbacks=self.ES,
                                   default_root_dir="./")  # for training on gpu
         # if there is a need to see the logs on wand be add logger=logger()
