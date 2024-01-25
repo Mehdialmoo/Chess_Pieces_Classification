@@ -5,6 +5,7 @@ import pytorch_lightning as pl
 from vars.model import ConvolutionalNetwork
 from sklearn.metrics import classification_report
 from pytorch_lightning.callbacks.early_stopping import EarlyStopping
+from vars.wandb_logger import logger
 
 # ========================================
 # from vars.my_wandb_logger import logger
@@ -42,7 +43,7 @@ class model_run():
     def setup_model(self):
         """create a new instance of our convolutional network and
         checks if its avalible to be run over gpu"""
-        # self.logger = logger() #used for wandb logger
+
         torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = ConvolutionalNetwork(labels=self.data.labels)
         self.model.configure_optimizers(learning_rate=self._lr)
@@ -73,8 +74,10 @@ class model_run():
         """
         self.trainer = pl.Trainer(max_epochs=self._epoch,
                                   accelerator='gpu',
+                                  logger=logger(),
                                   callbacks=self.ES,
                                   default_root_dir="./")  # for training on gpu
+        # if there is a need to see the logs on wand be add logger=logger()
         self.model.setup(stage='fit')
         self.trainer.fit(self.model, train_dataloaders=self.train_DB)
 
