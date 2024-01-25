@@ -1,9 +1,5 @@
-import sys
 import unittest
 from torchvision import transforms
-
-# caution: path[0] is reserved for script path (or '' in REPL)
-sys.path.insert(1, '/../SE/vars/')
 
 from vars.loading_data import ChessDB as DB
 from vars.utilities import create_CSV, plot_bar, plot_img, pre_process
@@ -24,7 +20,7 @@ TRANS = transforms.Compose([
 ])
 
 
-class Testloading_data(unittest.TestCase):
+class Testutilities(unittest.TestCase):
     """DocString"""
     def setUp(self) -> None:
         """DocString"""

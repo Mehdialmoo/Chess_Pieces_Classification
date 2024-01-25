@@ -14,7 +14,6 @@ class ChessDB(Dataset, pl.LightningDataModule):
     """
     DocString
     """
-
     def __init__(self, directory, transform, batch_size) -> None:
         """DocString"""
         super().__init__()
@@ -50,17 +49,17 @@ class ChessDB(Dataset, pl.LightningDataModule):
         if train_ratio+valid_ratio+test_ratio == 1:
             dataset = ImageFolder(root=self.dir, transform=self.transform)
             n_data = len(dataset)
-            no_train = round(train_ratio * n_data)
-            no_valid = round(valid_ratio * n_data)
-            no_test = round(test_ratio * n_data)
+            self.no_train = round(train_ratio * n_data)
+            self.no_valid = round(valid_ratio * n_data)
+            self.no_test = round(test_ratio * n_data)
 
             print(f"""Splited data :
-                  tain sample number:{no_train}
-                  validation sample number:{no_valid}
-                  test sample number:{no_test}""")
+                  tain sample number:{self.no_train}
+                  validation sample number:{self.no_valid}
+                  test sample number:{self.no_test}""")
 
             train_db, valid_db, test_db = random_split(
-                dataset, [no_train, no_valid, no_test])
+                dataset, [self.no_train, self.no_valid, self.no_test])
 
             self.train_dataset = DataLoader(train_db,
                                             batch_size=self.batch_size,
@@ -73,12 +72,13 @@ class ChessDB(Dataset, pl.LightningDataModule):
             # Create a bar plot of image counts for each class
             fig, ax = plt.subplots(figsize=(2, 5))
 
-            ax.bar("DB", no_train, width=0.2,
+            ax.bar("DB", self.no_train, width=0.2,
                    label="Train", color="navy")
-            ax.bar("DB", no_valid, width=0.2,
-                   label="Validation", bottom=no_train, color="steelblue")
-            ax.bar("DB", no_test, width=0.2,
-                   label="Test", bottom=no_train+no_valid, color="royalblue")
+            ax.bar("DB", self.no_valid, width=0.2,
+                   label="Validation", bottom=self.no_train, color="steelblue")
+            ax.bar("DB", self.no_test, width=0.2,
+                   label="Test",
+                   bottom=self.no_train+self.no_valid, color="royalblue")
 
             # Set the y-axis limit and add labels for the x and y axes
             ax.set_ylim(0, 1500)

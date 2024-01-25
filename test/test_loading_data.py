@@ -1,12 +1,7 @@
-import sys
 import unittest
+
 from torchvision import transforms
-
-# caution: path[0] is reserved for script path (or '' in REPL)
-sys.path.insert(1, '/../SE/vars/')
-
 from vars.loading_data import ChessDB as DB
-
 
 PATH = "./Data/Chess/"
 
@@ -32,22 +27,23 @@ class Testloading_data(unittest.TestCase):
     def test_dataloading_attributes(self):
         """"DocString"""
         print(self.data.labels)
+        self.assert_("Runs Successfully")
         print(len(self.data))
+        self.assert_("Runs Successfully")
         print(self.data.dir_list)
-        self.assertEqual(self.data.labels, 6)
+        self.assert_("Runs Successfully")
+        self.assertEqual(len(self.data.labels), 6)
 
     def test_dataloading(self):
         """"DocString"""
         print(self.data.dataset, self.data.dataset_label)
+        self.assert_("Runs Successfully")
         self.assertEqual(len(self.data.dataset), len(self.data.dataset_label))
 
     def test_slpit(self):
         """Split the dataset into training and testing sets."""
         self.data.db_split(train_ratio=0.6, valid_ratio=0.2, test_ratio=0.2)
-        trainDB = self.data.train_dataloader()
-        validDB = self.data.valid_dataloader()
-        testDB = self.data.test_dataloader()
-        s = len(trainDB)+len(validDB)+len(testDB)
+        s = self.data.no_train + self.data.no_test + self.data.no_valid
         self.assertEqual(s, len(self.data))
 
 
