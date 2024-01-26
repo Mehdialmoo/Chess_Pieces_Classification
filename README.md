@@ -204,7 +204,10 @@ In this example, we define a function multi that takes two arguments and returns
 ## 3. Dataset
 The dataset consists of chess pieces images collected from various sources. It contains 6 classes: King, Queen, Rook, Bishop, Knight, and Pawn. The dataset is split into training and testing sets with a ratio of 60:20:20. this dataset is a combination of  [Chessman Dataset](https://www.kaggle.com/datasets/niteshfre/chessman-image-dataset/download?datasetVersionNumber=1) & [Chess Pieces Detection Images Dataset](https://www.kaggle.com/datasets/anshulmehtakaggl/chess-pieces-detection-images-dataset/download?datasetVersionNumber=31). these to datasets are merged and preproccessed, including resizing and renaming and creating a CSV file including labels and addresses, into [ChessClassDataSet](https://www.kaggle.com/datasets/mehdialmousavie/chessclassdataset/data) to download each of these data sets just click on the name of the datasets. if you are not usinf [ChessClassDataSet](https://www.kaggle.com/datasets/mehdialmousavie/chessclassdataset/data) , it is encouraged to run the preprocessing functions from [utilities.py](./vars/utilities.py) file.
 
-## 4.Result
+## 4.[workstation](./workstation.ipynb)
+This notebook contains all the steps to reproduce the experiments presented in our project. The notebook is divided into several sections, each focusing on a specific part of the project. this file includes data loading
+visulising, spliting data, setting up the model and train and validating the model and evaluating the model resualts.
+## 5.Result
 the results of training such model are mesured by  accuracy and  loss. finally will disscuss the evaluation of the system.
 after training the model on the traning set for 50 epoches and using Early stopper the results have been as follows:
 
