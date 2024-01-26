@@ -27,7 +27,7 @@ This repository contains a simple Convolutional Neural Network (CNN) implemented
 **keywords: CNN(Convolutional Neural Network), PyTorch, PyTorch Lightning, Chess Dataset, Classififcation** 
 ## **Introduction**
 This repository is a **PyTorch** and **PyTorch Lightning** implementation of a **Convolutional Neural Network (CNN)** that classifies chess pieces into six categories: King, Queen, Rook, Bishop, Knight, and Pawn. The model is trained on a custom dataset of chess piece images, and the project includes files for data loading, model definition, training, and evaluation. The repository is organized into four main files: `loading_data.py`, `model.py`, `model_run.py`, and `utilities.py`, which are responsible for data loading, model definition, model training, and utility functions, respectively. The project also includes unit testing files and instructions for setting up the environment and dataset. The use of CNNs and PyTorch Lightning is discussed, highlighting their benefits for image classification tasks. 
-This project aims to classify the chess pieces (King, Queen, Bishop, Knight, Rook).
+This project aims to classify the chess pieces (King, Queen, Bishop, Knight, Rook, Pawn).
 this project Files are as follows:
 ```
 project
@@ -103,14 +103,7 @@ Note: This file does not include data loading but uses the [loading_data](./vars
 A Convolutional Neural Network (CNN) is a type of artificial neural network that is commonly used for image processing, classification, and recognition tasks[(Sharma and Phonsa 2021)](#sharma-a-and-phonsa-g-2021-image-classification-using-cnn-ssrn-electronic-journal). CNNs are designed to automatically and adaptively learn spatial hierarchies of features from images, which makes them particularly well-suited for tasks such as object detection, image segmentation, and image classification.[(Sharma and Phonsa 2021)](#sharma-a-and-phonsa-g-2021-image-classification-using-cnn-ssrn-electronic-journal)
 
 In the context of chess pieces, a CNN can be used to process images of chess pieces and classify them into different categories, such as pawn, rook, knight, bishop, queen, and king. This can be useful in a variety of applications, such as automated chess analysis, chess notation conversion, and chess game analysis.
-
-The reason why CNNs are good for processing chess piece images is because they can effectively learn and extract features that are relevant for chess piece classification [(Quintana et al. 2020)]First, the code imports the WandbLogger class from the pytorch_lightning.loggers module and the wandb module itself.
-
-The logger function starts by calling the wandb.login function with an empty string as its argument. This function is used to log in to a WandB account using an API key, which is inserted in place of the empty string. This allows the function to access the user's WandB account and use it for logging.
-
-Next, the function creates an instance of the WandbLogger class, passing in the argument log_model="all". This argument tells the logger to log the model architecture and weights, as well as any other information that is logged by default.
-
-Finally, the function returns the WandbLogger instance, which can be used to log information during training.(#quintana-d-andrea-calderón-garcía-and-prieto-matías-m-2020-livechess2fen-a-framework-for-classifying-chess-pieces-based-on-cnns-arxiv-cornell-university). For example, a CNN can learn to recognize the distinct shapes and patterns of different chess pieces, such as the cross-shaped pattern of a rook or the curved shape of a knight. Additionally, CNNs can learn to be invariant to variations in image scale, orientation, and lighting conditions, which can help improve the robustness and accuracy of chess piece classification[(Yamashita et al. 2018)](#yamashita-r-nishio-m-do-r-k-g-and-togashi-k-2018-convolutional-neural-networks-an-overview-and-application-in-radiology-insights-into-imaging-online-9-4-611–629-available-from-httpsinsightsimagingspringeropencomarticles101007s13244-018-0639-9).
+The reason why CNNs are good for processing chess piece images is because they can effectively learn and extract features that are relevant for chess piece classification [(Quintana et al. 2020)](#quintana-d-andrea-calderón-garcía-and-prieto-matías-m-2020-livechess2fen-a-framework-for-classifying-chess-pieces-based-on-cnns-arxiv-cornell-university) For example, a CNN can learn to recognize the distinct shapes and patterns of different chess pieces, such as the cross-shaped pattern of a rook or the curved shape of a knight. Additionally, CNNs can learn to be invariant to variations in image scale, orientation, and lighting conditions, which can help improve the robustness and accuracy of chess piece classification[(Yamashita et al. 2018)](#yamashita-r-nishio-m-do-r-k-g-and-togashi-k-2018-convolutional-neural-networks-an-overview-and-application-in-radiology-insights-into-imaging-online-9-4-611–629-available-from-httpsinsightsimagingspringeropencomarticles101007s13244-018-0639-9).
 
 Overall, CNNs provide a powerful and flexible framework for processing and classifying chess piece images, and can help enable a wide range of chess-related applications and analyses.
 
@@ -118,36 +111,18 @@ Overall, CNNs provide a powerful and flexible framework for processing and class
 In the context of chess piece classification, a CNN can be used to process images of chess pieces and classify them into different categories, such as pawn, rook, knight, bishop, queen, and king. PyTorch Lightning can simplify the training process by automating tasks such as logging of training metrics, saving and loading checkpoints, and progress tracking. This enables you to focus on building the CNN model and improving its accuracy[(Falcon 2020)](#falcon-w-2020-from-pytorch-to-pytorch-lightning--a-gentle-introduction-online-medium-available-from-httpstowardsdatasciencecomfrom-pytorch-to-pytorch-lightning-a-gentle-introduction-b371b7caaf09).
 
  
-* multiple features: It offers lightweight featFirst, the code imports the WandbLogger class from the pytorch_lightning.loggers module and the wandb module itself.
-
-The logger function starts by calling the wandb.login function with an empty string as its argument. This function is used to log in to a WandB account using an API key, which is inserted in place of the empty string. This allows the function to access the user's WandB account and use it for logging.
-
-Next, the function creates an instance of the WandbLogger class, passing in the argument log_model="all". This argument tells the logger to log the model architecture and weights, as well as any other information that is logged by default.
-
-Finally, the function returns the WandbLogger instance, which can be used to log information during training.ures such as the option to easily manage training, testing , loading previous checkpoints based on "latest train", "besd accuracy" and etc. on a distributed system, using automatic mixed precision for better speed, and accuracy.[(Maurya et al. 2023)](#maurya-a-mocholí-c-pablo-j-lienen-m-and-shenoy-n-2023-pytorch-lightning-20-online-lightning-ai-available-from-httpslightningaireleases200-accessed-24-jan-2024)
+* multiple features: It offers lightweight featFirst, the code imports the WandbLogger class from the pytorch_lightning.loggers module and the wandb module itself. on a distributed system, using automatic mixed precision for better speed, and accuracy.[(Maurya et al. 2023)](#maurya-a-mocholí-c-pablo-j-lienen-m-and-shenoy-n-2023-pytorch-lightning-20-online-lightning-ai-available-from-httpslightningaireleases200-accessed-24-jan-2024)
 
 * Automatic Integration of Training Logging: PyTorch Lightning simplifies the training process by automating tasks such as logging of training metrics, saving and loading checkpoints, and progress tracking. This enables you to focus on building the deep learning model[(Maurya et al. 2023)](#maurya-a-mocholí-c-pablo-j-lienen-m-and-shenoy-n-2023-pytorch-lightning-20-online-lightning-ai-available-from-httpslightningaireleases200-accessed-24-jan-2024).
 
 * advance Model logging loading: PyTorch Lightning offers an integrated trainer that allows you to easily save your models by weights and hyperparameters metrics this enalbles the user to load the model fully or only load the weights and continue with the training or testing.
 alsother are option to load the latest log or the best log from accuracy aspect. This simplifies the process of debugging your deep learning model[(Maurya et al. 2023)](#maurya-a-mocholí-c-pablo-j-lienen-m-and-shenoy-n-2023-pytorch-lightning-20-online-lightning-ai-available-from-httpslightningaireleases200-accessed-24-jan-2024).
 
-* Seamless Extension of Models: PyTorch Lightning makes it easy to extend the capabilities of your model by offering pre-built models or easier  and components. This enables you to easily plug-and-play various model architectures, layers, and callbacks into your model[(Maurya et al. 2023)]First, the code imports the WandbLogger class from the pytorch_lightning.loggers module and the wandb module itself.
-
-The logger function starts by calling the wandb.login function with an empty string as its argument. This function is used to log in to a WandB account using an API key, which is inserted in place of the empty string. This allows the function to access the user's WandB account and use it for logging.
-
-Next, the function creates an instance of the WandbLogger class, passing in the argument log_model="all". This argument tells the logger to log the model architecture and weights, as well as any other information that is logged by default.
-
-Finally, the function returns the WandbLogger instance, which can be used to log information during training.(#maurya-a-mocholí-c-pablo-j-lienen-m-and-shenoy-n-2023-pytorch-lightning-20-online-lightning-ai-available-from-httpslightningaireleases200-accessed-24-jan-2024)
+* Seamless Extension of Models: PyTorch Lightning makes it easy to extend the capabilities of your model by offering pre-built models or easier  and components. This enables you to easily plug-and-play various model architectures, layers, and callbacks into your model[(Maurya et al. 2023)](#maurya-a-mocholí-c-pablo-j-lienen-m-and-shenoy-n-2023-pytorch-lightning-20-online-lightning-ai-available-from-httpslightningaireleases200-accessed-24-jan-2024)
 
 * Integration with Existing Code: PyTorch Lightning can be easily integrated with existing PyTorch code. This ensures that you can utilize the features and functionalities provided by PyTorch Lightning while still maintaining compatibility with your existing codebase[(Maurya et al. 2023)](#maurya-a-mocholí-c-pablo-j-lienen-m-and-shenoy-n-2023-pytorch-lightning-20-online-lightning-ai-available-from-httpslightningaireleases200-accessed-24-jan-2024)
 
 In conclusion, using PyTorch Lightning for chess piece classification provides several advantages such as easy integration witFirst, the code imports the WandbLogger class from the pytorch_lightning.loggers module and the wandb module itself.
-
-The logger function starts by calling the wandb.login function with an empty string as its argument. This function is used to log in to a WandB account using an API key, which is inserted in place of the empty string. This allows the function to access the user's WandB account and use it for logging.
-
-Next, the function creates an instance of the WandbLogger class, passing in the argument log_model="all". This argument tells the logger to log the model architecture and weights, as well as any other information that is logged by default.
-
-Finally, the function returns the WandbLogger instance, which can be used to log information during training.h existing PyTorch code, automatic training, validating, testing and evaluating, plus saving and loading logs, and simplified model debugging. This ultimately enables you to focus on building and improving your deep learning model without having to worry about the intricacies of the underlying framework.
    
 ### 1.3. [model_run](./vars/model_run.py) :
 
@@ -184,18 +159,15 @@ another important part of this project is unit testing files that are including 
 
 ### 1.5. [wandb_logger](./vars/wandb_logger.py)
 
-This file defines a function called logger() that sets up and returns a logging object using the WandBLogger class from the PyTorch Lightning library. WandBLogger is a wrapper around the Weights & Biases (WandB) platform, which is a tool for tracking and visualizing machine learning experiments. to be able to the visualise these graphs please visit https://wandb.ai/ and signup then visit https://wandb.ai/authorize to copy your special key and paste it into [wandb_logger](./vars/wandb_logger.py) file. to see the demonstration of the code on graphs visit   
+This file defines a function called logger() that sets up and returns a logging object using the WandBLogger class from the PyTorch Lightning library. WandBLogger is a wrapper around the Weights & Biases (WandB) platform, which is a tool for tracking and visualizing machine learning experiments. to be able to the visualise these graphs please visit https://wandb.ai/ and signup then visit https://wandb.ai/authorize to copy your special key and paste it into [wandb_logger](./vars/wandb_logger.py) file. to see the demonstration of the code on graphs visit [wandb workspace](https://wandb.ai/lightning_logs/runs/).
 
-Here's a breakdown of what the code does:
+Here's a breakdown of what this file does:
 
 The first line imports the WandbLogger class from the pytorch_lightning.loggers module.
-The second line imports the wandb module, which provides the functionality for interacting with the Weights & Biases platform.
-The logger() function is defined. It starts by calling the wandb.login() function with an empty string as its argument. This function is used to log in to the Weights & Biases platform using an API key. In this case, the key is not provided as an argument, so the function will prompt the user to enter their key manually.
+The second line imports the wandb module, which provides the functionality for interacting with the Weights & Biases platform. The logger() function is defined. It starts by calling the wandb.login() function with an empty string as its argument. This function is used to log in to the Weights & Biases platform using an API key. In this case, the key is not provided as an argument, so the function will prompt the user to enter their key manually.
 alternatively you can provide your key in the argument itself as shown in the code, in that case, you don't need to manually enter the key.
 
-The WandbLogger class is then initialized with the log_model="all" argument. This argument tells the logger to log the model architecture, weights, and gradients.
-The logger object is returned by the function.
-This logger object can then be used in a PyTorch Lightning training loop to log metrics, model artifacts, and other information to Weights & Biases, allowing you to track the progress of your training and compare different experiments.
+The WandbLogger class is then initialized with the log_model="all" argument. This argument tells the logger to log the model architecture, weights, and gradients. This logger object can then be used in a PyTorch Lightning training loop to log metrics, model artifacts, and other information to Weights & Biases, allowing you to track the progress of your training and compare different experiments.
 
 ## 2. Testing
 A built-in module called unittest is available in Python for unit testing. It provides tools for writing and executing unit tests, as well as generating reports on the results.
@@ -224,7 +196,7 @@ In this example, we define a function multi that takes two arguments and returns
 
 * *Note: testing files may not for from terminal please run them from inside VS:code or PyCharm `issue of calling modules` from other folders * 
 ## 3. Dataset
-The dataset consists of chess pieces images collected from various sources. It contains 6 classes: King, Queen, Rook, Bishop, Knight, and Pawn. The dataset is split into training and testing sets with a ratio of 60:20:20. this dataset is a combination of  [Chessman Dataset](https://www.kaggle.com/datasets/niteshfre/chessman-image-dataset/download?datasetVersionNumber=1) & [Chess Pieces Detection Images Dataset](https://www.kaggle.com/datasets/anshulmehtakaggl/chess-pieces-detection-images-dataset/download?datasetVersionNumber=31). these to datasets are merged and preproccessed, including resizing and renaming and creating a CSV file including labels and addresses, into [ChessClassDataSet](https://www.kaggle.com/datasets/mehdialmousavie/chessclassdataset/data) to download each of these data sets just click on the name of the datasets. if you are not usinf [ChessClassDataSet](https://www.kaggle.com/datasets/mehdialmousavie/chessclassdataset/data) , it is encouraged to run the preprocessing functions from [utilities.py](./vars/utilities.py) file.
+The dataset consists of chess pieces images collected from various sources. It contains 6 classes: King, Queen, Rook, Bishop, Knight, and Pawn. The dataset is split into training, validation and testing sets with a ratio of 60:20:20. this dataset is a combination of  [Chessman Dataset](https://www.kaggle.com/datasets/niteshfre/chessman-image-dataset/download?datasetVersionNumber=1) & [Chess Pieces Detection Images Dataset](https://www.kaggle.com/datasets/anshulmehtakaggl/chess-pieces-detection-images-dataset/download?datasetVersionNumber=31). these to datasets are merged and preproccessed, including resizing and renaming and creating a CSV file including labels and addresses, into [ChessClassDataSet](https://www.kaggle.com/datasets/mehdialmousavie/chessclassdataset/data) to download each of these data sets just click on the name of the datasets. if you are not using [ChessClassDataSet](https://www.kaggle.com/datasets/mehdialmousavie/chessclassdataset/data) , it is encouraged to run the preprocessing functions from [utilities.py](./vars/utilities.py) file.
 
 ## 4. [workstation](./workstation.ipynb)
 This notebook contains all the steps to reproduce the experiments presented in our project. The notebook is divided into several sections, each focusing on a specific part of the project. this file includes data loading
