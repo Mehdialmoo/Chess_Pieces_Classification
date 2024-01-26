@@ -2,7 +2,11 @@
 ![](./Data/PIC/O.jpg)
 # Table of content
 - [Introduction](#introduction)
-- [uploading Dataset to github Problem](#)
+- [Uploading Dataset to github Problem](#uploading-dataset-to-github-problem)
+- [Different image size and different image file type](#different-image-size-and-different-image-file-type)
+- [Calling  modules from other folder](#calling-modules-from-other-folder)
+- [Testing some files that don't return anything](#testing-some-files-that-dont-return-anything)
+- [Cannot load 2 different ways of loading at the same time](#cannot-load-2-different-ways-of-loading-at-the-same-time)
 
 # Introduction
 
@@ -27,3 +31,44 @@ in the datasets there are different files from .jpg, .png, .svg there is a need 
 __Problem Solving Solution:__
 
 created a python file to preproccess and rename all the file into a structured way this file is avilable with [utilities.py](./vars/utilities.py) name.
+
+# Calling  modules from other folder
+
+__Problem explanation:__ 
+
+cannot call modules from vars folder into a testing file or workspapce jupyternotebook
+
+__Problem Solving Solution:__
+
+creating `__init__` file in every folder initaties that the files contains modules like library and by this we can call the modules like 
+```python
+import vars.loading_data
+from vars.loading_data import ChessDB as DB
+```
+# Testing some files that don't return anything
+
+__Problem explanation:__ 
+
+some functions dosent return anything or just plot pictures and graphs,
+
+__Problem Solving Solution:__
+
+we can simply run them and put:
+```python
+self.assert_("Runs Successfully")
+```
+this will notice us if the function run sussesfully without errrors.
+
+# Cannot load 2 different ways of loading at the same time
+
+__Problem explanation:__ 
+
+cannot load fully load and weight only load at the same time for the model 
+
+__Problem Solving Solution:__
+
+no solution yet.
+
+
+
+

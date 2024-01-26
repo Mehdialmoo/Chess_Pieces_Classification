@@ -1,5 +1,26 @@
 # ***Chess Pieces Classification***
 ![](./Data/PIC/OIG.jpg)
+# Table of content
++ [Abstract](#abstract)
++ [Introduction](#introduction)
+-----------------
++ [Model files](#1-model-files)
+   - [loading_data](#11-loading_data)
+   - [model](#12-model)
+      * [Why CNN model](#121-why-cnn-model)
+      * [Why PyTorch lightning](#122-why-pytorch_lightning)
+   - [model_run](#13-model_run)
+   - [utilities](#14-utilities)
+   - [wandb_logger](#15-wandb_logger)
++ [Testing](#2-testing)
++ [Dataset](#3-dataset)
++ [workstation](#4-workstation)
++ [Result](#5-result)
+----------------
++ [Setup](#setup)
++ [conclusion](#conclusion)
++ [Refrences](#refrences)
+
 ## **Abstract**
 This repository contains a simple Convolutional Neural Network (CNN) implemented in PyTorch and PyTorch Lightning for classifying chess pieces. The model is trained on a custom dataset of chess pieces images, and the project includes files for data loading, model definition, training, and evaluation. The goal of this project is to accurately classify chess pieces into six categories: King, Queen, Rook, Bishop, Knight, and Pawn. The project also includes unit testing files and instructions for setting up the environment and dataset.
 
@@ -27,12 +48,13 @@ project
       |___ENVIRONMENT.yml
       |___LICENCE.md
       |___RubberDuck.md
+      |___workstation.ipynb
                      
 ```
 - *Note: some files have been hidden beacuse of security reasons  the codes related to such files are commented.*
 - *Note:`__init__.py` files are only for caliing modules and they are not part of the main architecture.*
 
-## **1. model files**
+## **1. Model files**
 this project consists of four main files that all are mainly inside [vars](./vars/) folder:
 ### 1.1. [loading_data](./vars/loading_data.py) : 
 This file is responsible for data augmentation using pytorch transformers and splitting datasets. This python file contains a custom PyTorch Dataset and LightningDataModule class for loading and processing a chess dataset. The ChessDB class inherits from both Dataset and LightningDataModule to load the data and provide methods for splitting the data into training, validation, and test sets.The class takes in a directory path to the chess dataset, a PyTorch transform to apply to the data, and a batch size for training.
@@ -77,7 +99,7 @@ defualt value is set to learning rate of 0.001.
 
 Note: This file does not include data loading but uses the [loading_data](./vars/loading_data.py) to do so. for training loop, it uses Pytorch_lightning fit method to train the model that are included in [model_run](./vars/model_run.py) file , other needed functions as like saving and loading log checkpoints and  validating and testing are implemented using PyTorch Lightning in [model_run](./vars/model_run.py) file, but first lets discuss why PyTorch Lightning and CNN are use for this project.
 
-### 1.2.1 why CNN Model:
+### 1.2.1 Why CNN Model:
 A Convolutional Neural Network (CNN) is a type of artificial neural network that is commonly used for image processing, classification, and recognition tasks[(Sharma and Phonsa 2021)](#sharma-a-and-phonsa-g-2021-image-classification-using-cnn-ssrn-electronic-journal). CNNs are designed to automatically and adaptively learn spatial hierarchies of features from images, which makes them particularly well-suited for tasks such as object detection, image segmentation, and image classification.[(Sharma and Phonsa 2021)](#sharma-a-and-phonsa-g-2021-image-classification-using-cnn-ssrn-electronic-journal)
 
 In the context of chess pieces, a CNN can be used to process images of chess pieces and classify them into different categories, such as pawn, rook, knight, bishop, queen, and king. This can be useful in a variety of applications, such as automated chess analysis, chess notation conversion, and chess game analysis.
@@ -92,7 +114,7 @@ Finally, the function returns the WandbLogger instance, which can be used to log
 
 Overall, CNNs provide a powerful and flexible framework for processing and classifying chess piece images, and can help enable a wide range of chess-related applications and analyses.
 
-### 1.2.2 why Pytorch_lightning
+### 1.2.2 Why Pytorch_lightning
 In the context of chess piece classification, a CNN can be used to process images of chess pieces and classify them into different categories, such as pawn, rook, knight, bishop, queen, and king. PyTorch Lightning can simplify the training process by automating tasks such as logging of training metrics, saving and loading checkpoints, and progress tracking. This enables you to focus on building the CNN model and improving its accuracy[(Falcon 2020)](#falcon-w-2020-from-pytorch-to-pytorch-lightning--a-gentle-introduction-online-medium-available-from-httpstowardsdatasciencecomfrom-pytorch-to-pytorch-lightning-a-gentle-introduction-b371b7caaf09).
 
  
@@ -204,10 +226,10 @@ In this example, we define a function multi that takes two arguments and returns
 ## 3. Dataset
 The dataset consists of chess pieces images collected from various sources. It contains 6 classes: King, Queen, Rook, Bishop, Knight, and Pawn. The dataset is split into training and testing sets with a ratio of 60:20:20. this dataset is a combination of  [Chessman Dataset](https://www.kaggle.com/datasets/niteshfre/chessman-image-dataset/download?datasetVersionNumber=1) & [Chess Pieces Detection Images Dataset](https://www.kaggle.com/datasets/anshulmehtakaggl/chess-pieces-detection-images-dataset/download?datasetVersionNumber=31). these to datasets are merged and preproccessed, including resizing and renaming and creating a CSV file including labels and addresses, into [ChessClassDataSet](https://www.kaggle.com/datasets/mehdialmousavie/chessclassdataset/data) to download each of these data sets just click on the name of the datasets. if you are not usinf [ChessClassDataSet](https://www.kaggle.com/datasets/mehdialmousavie/chessclassdataset/data) , it is encouraged to run the preprocessing functions from [utilities.py](./vars/utilities.py) file.
 
-## 4.[workstation](./workstation.ipynb)
+## 4. [workstation](./workstation.ipynb)
 This notebook contains all the steps to reproduce the experiments presented in our project. The notebook is divided into several sections, each focusing on a specific part of the project. this file includes data loading
 visulising, spliting data, setting up the model and train and validating the model and evaluating the model resualts.
-## 5.Result
+## 5. Result
 the results of training such model are mesured by  accuracy and  loss. finally will disscuss the evaluation of the system.
 after training the model on the traning set for 50 epoches and using Early stopper the results have been as follows:
 
