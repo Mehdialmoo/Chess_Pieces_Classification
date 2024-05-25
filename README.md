@@ -3,7 +3,6 @@
 # Table of content
 + [Abstract](#abstract)
 + [Introduction](#introduction)
------------------
 + [Model files](#1-model-files)
    - [loading_data](#11-loading_data)
    - [model](#12-model)
@@ -16,7 +15,6 @@
 + [Dataset](#3-dataset)
 + [workstation](#4-workstation)
 + [Result](#5-result)
-----------------
 + [Setup](#setup)
 + [conclusion](#conclusion)
 + [Refrences](#refrences)
